@@ -1,0 +1,122 @@
+package com.example.HydroQApi.model;
+
+/*
+ * I HAD TO MAKE AN INSTACE OF THIS MODEL WITH TAGS TO INTEGRATE INTO H2 
+ * LAST MINUTE BECAUSE I WAS GETTING TOO MANY ERRORS INTEGRATING LIBRARY DEPENDENCY...
+ * 
+ * You can still see the Library Connected to this class @PowerOutageModel in my Config but 
+ * whenever I tried to use it in service/repo it breaks my whole project :(
+ * 
+ */
+
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Table(name = "PowerOutageTable") // assigning table
+@Entity
+public class PowerOutage {
+
+    @Id // primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // telling JPA to increment by one
+    @Column(name = "id") // assigning column
+    private int id;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "description")
+    private String description;
+
+    @CreationTimestamp // JPA annotation to mark creation record
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Date createdAt;
+
+    @UpdateTimestamp // JPA annotation to mark update record
+    @Column(name = "updated_at")
+    private Date updateAt;
+
+    public PowerOutage() { // Default Construtor
+
+    }
+
+    public PowerOutage(int id, Date createdAt, Date updateAt, String address, String status, String description) { // General
+                                                                                                                   // Constructor
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updateAt = updateAt;
+        this.address = address;
+        this.status = status;
+        this.description = description;
+    }
+
+    // ACCESSOR AND MUTATORS
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "PowerOutage [id=" + id + ", address=" + address + ", status=" + status + ", description=" + description
+                + ", createdAt=" + createdAt + ", updateAt=" + updateAt + "]";
+    }
+
+
+
+    
+}
